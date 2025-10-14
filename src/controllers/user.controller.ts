@@ -1,11 +1,15 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { userService } from '../services';
 
-async function findAll(req: Request, res: Response) {
+async function findAll(req: Request, res: Response, next: NextFunction) {
   //TODO: handle exception
-  const users = await userService.findAll();
+  try {
+    const users = await userService.findAll();
+    res.json(users);
+  } catch (error) {
+    next(error);
+  }
 
-  res.json(users);
 }
 
 async function findOne() { }
