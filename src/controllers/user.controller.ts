@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { userService } from '../services';
+import { HttpStatusCode } from '../common/http/httpStatusCode';
 
 export class UserController {
   constructor(private service = userService) { }
@@ -30,7 +31,7 @@ export class UserController {
       const userData = req.body;
       const created = await this.service.create(userData);
 
-      res.status(201).json(created);
+      res.status(HttpStatusCode.CREATED).json(created);
     } catch (error) {
       next(error);
     }
@@ -53,7 +54,7 @@ export class UserController {
       const id = Number(req.params.id);
       await this.service.remove(id);
 
-      res.status(204).send();
+      res.status(HttpStatusCode.NO_CONTENT).send();
     } catch (error) {
       next(error);
     }

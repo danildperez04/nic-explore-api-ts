@@ -3,7 +3,7 @@ import { userRepository } from '../repositories';
 import { IService } from './IService';
 import { NotFoundException } from '../common/exceptions/httpException';
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
-
+import bcrypt from 'bcrypt';
 export class UserService implements IService<User> {
   constructor(private repository = userRepository) { }
 
@@ -26,7 +26,12 @@ export class UserService implements IService<User> {
   }
 
   async create(userData: CreateUserDto): Promise<User> {
-    const user = await this.repository.create(userData);
+    const hashedPassword = await this.hashPassword(userData.password);
+
+    const user = await this.repository.create({
+      ...userData,
+      password: hashedPassword,
+    });
 
     return user;
   }
@@ -45,6 +50,14 @@ export class UserService implements IService<User> {
     if (!removed) throw new NotFoundException('User not found');
   }
 
+  async hashPassword(input: string) {
+    const saltRounds = 10;
+
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hash = await bcrypt.hash(input, salt);
+
+    return hash;
+  }
 }
 
 const defaultUserService = new UserService();
