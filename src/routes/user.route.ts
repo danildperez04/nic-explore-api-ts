@@ -1,13 +1,11 @@
 import { Router } from 'express';
+import { userController } from '../controllers';
 
 const router: Router = Router();
 
-router.get('/', (req, res) => {
-  res.json({ message: 'User route is working' });
-});
+const { findAll } = userController;
 
-router.post('/profile', (req, res) => {
-  // profile logic
-});
+router.route('/')
+  .get(findAll);
 
 export default router;
