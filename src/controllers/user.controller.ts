@@ -8,4 +8,12 @@ async function findAll(req: Request, res: Response) {
   res.json(users);
 }
 
-export { findAll };
+async function findOne() { }
+
+async function create() { }
+
+async function update() { }
+
+async function remove() { }
+
+export { findAll, findOne, create, update, remove };

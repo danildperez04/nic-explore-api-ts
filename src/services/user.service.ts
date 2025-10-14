@@ -10,4 +10,12 @@ async function findAll() {
   return users;
 }
 
-export { findAll };
+async function findOne(_id: number) { }
+
+async function create(_userData: Partial<any>) { }
+
+async function update(_id: number, _userData: Partial<any>) { }
+
+async function remove(_id: number) { }
+
+export { findAll, findOne, create, update, remove };
