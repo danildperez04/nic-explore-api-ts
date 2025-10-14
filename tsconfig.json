@@ -40,7 +40,7 @@
     "skipLibCheck": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "baseUrl": "./src", /* Specify the base directory to resolve non-relative module names. */
+    // "baseUrl": "./src", /* Specify the base directory to resolve non-relative module names. */
     // "paths": {
     // "@*": [
     //   "./src/*"
