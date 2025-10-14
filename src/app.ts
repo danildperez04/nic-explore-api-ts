@@ -2,8 +2,8 @@ import express, { Express } from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import router from './routes';
-import { notFoundHandler } from 'middlewares/notfound';
-import { errorHandler } from 'middlewares/errorHandler';
+import { notFoundHandler } from './middlewares/notfound';
+import { errorHandler } from './middlewares/errorHandler';
 
 const app: Express = express();
 
