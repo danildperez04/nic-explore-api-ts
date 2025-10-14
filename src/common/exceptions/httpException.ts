@@ -1,3 +1,4 @@
+import { ValidationError } from 'class-validator';
 import { CustomException } from './customException';
 
 export class HttpException extends CustomException {
@@ -20,6 +21,14 @@ export class BadRequestException extends HttpException {
   constructor(message: string = 'Bad Request') {
     super(400, message);
     this.name = 'BadRequestException';
+  }
+}
+
+export class ValidationException extends BadRequestException {
+  public details: ValidationError[];
+  constructor(message = 'Validation Error') {
+    super(message);
+    this.name = 'ValidationException';
   }
 }
 

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
-import { BadRequestException } from '../common/exceptions/httpException';
+import { BadRequestException, ValidationException } from '../common/exceptions/httpException';
 
 export function validateDto(dtoClass: ClassConstructor<unknown>) {
   return async (req: Request, _res: Response, next: NextFunction) => {
@@ -15,14 +15,11 @@ export function validateDto(dtoClass: ClassConstructor<unknown>) {
     const errors = await validate(instance, { whitelist: true, forbidNonWhitelisted: false });
 
     if (errors.length > 0) {
-      const validationError = new BadRequestException('Validation failed');
+      const validationError = new ValidationException();
 
-      const e = {
-        ...validationError,
-        details: errors,
-      };
+      validationError.details = errors;
 
-      return next(e);
+      return next(validationError);
     }
 
     // assign the sanitized instance back to body (optional)
