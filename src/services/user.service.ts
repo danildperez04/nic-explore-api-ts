@@ -1,22 +1,51 @@
-import { NotFoundException } from '../common/exceptions/httpException';
+import { User } from '../entities/user.entity';
 import { userRepository } from '../repositories';
+import { IService } from './IService';
+import { NotFoundException } from '../common/exceptions/httpException';
+import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
 
-async function findAll() {
-  const users = await userRepository.findAll();
+export class UserService implements IService<User> {
+  constructor(private repository = userRepository) { }
 
-  if (!users || users.length === 0) {
-    throw new NotFoundException('No users found');
+  async findAll(): Promise<User[]> {
+    const users = await this.repository.findAll();
+
+    if (!users || users.length === 0) {
+      throw new NotFoundException('No users found');
+    }
+
+    return users;
   }
 
-  return users;
+  async findOne(id: number): Promise<User | null> {
+    const user = await this.repository.findOne(id);
+
+    if (!user) throw new NotFoundException('User not found');
+
+    return user;
+  }
+
+  async create(userData: CreateUserDto): Promise<User> {
+    const user = await this.repository.create(userData);
+
+    return user;
+  }
+
+  async update(id: number, userData: UpdateUserDto): Promise<User | null> {
+    const updated = await this.repository.update(id, userData);
+
+    if (!updated) throw new NotFoundException('User not found');
+
+    return updated;
+  }
+
+  async remove(id: number): Promise<void> {
+    const removed = await this.repository.remove(id);
+
+    if (!removed) throw new NotFoundException('User not found');
+  }
+
 }
 
-async function findOne(_id: number) { }
-
-async function create(_userData: Partial<any>) { }
-
-async function update(_id: number, _userData: Partial<any>) { }
-
-async function remove(_id: number) { }
-
-export { findAll, findOne, create, update, remove };
+const defaultUserService = new UserService();
+export default defaultUserService;
