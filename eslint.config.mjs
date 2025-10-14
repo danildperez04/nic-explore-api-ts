@@ -14,6 +14,9 @@ export default defineConfig([
       'no-unused-vars': 'warn',
       'semi': ['error', 'always'],
       'quotes': ['error', 'single'],
+      '@typescript-eslint/no-unused-vars': ['warn', {
+        'argsIgnorePattern': '^_'
+      }]
     },
   },
   tseslint.configs.recommended,
