@@ -9,4 +9,16 @@ async function findAll() {
   return users;
 }
 
-export { findAll };
+async function findOne(id: number) {
+  const user = await userRepository.findOneBy({ id });
+
+  return user;
+}
+
+async function create(_userData: Partial<User>) { }
+
+async function update(_id: number, _userData: Partial<User>) { }
+
+async function remove(_id: number) { }
+
+export { findAll, findOne, create, update, remove };
