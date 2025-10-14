@@ -1,10 +1,11 @@
+import { NotFoundException } from '../common/exceptions/httpException';
 import { userRepository } from '../repositories';
 
 async function findAll() {
   const users = await userRepository.findAll();
 
   if (!users || users.length === 0) {
-    throw new Error('No users found');
+    throw new NotFoundException('No users found');
   }
 
   return users;
