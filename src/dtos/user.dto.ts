@@ -3,6 +3,14 @@ import { IsEmail, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-vali
 export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
+  firstName: string;
+
+  @IsNotEmpty()
+  @IsString()
+  lastName: string;
+
+  @IsNotEmpty()
+  @IsString()
   username: string;
 
   @IsNotEmpty()
@@ -13,6 +21,10 @@ export class CreateUserDto {
   @IsString()
   @MinLength(6)
   password: string;
+
+  @IsOptional()
+  @IsString()
+  description?: string;
 }
 
 export class UpdateUserDto {
