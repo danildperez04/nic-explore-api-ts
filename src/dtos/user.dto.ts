@@ -29,6 +29,15 @@ export class CreateUserDto {
 
 export class UpdateUserDto {
   @IsOptional()
+  @IsNotEmpty()
+  @IsString()
+  firstName?: string;
+
+  @IsOptional()
+  @IsString()
+  lastName?: string;
+
+  @IsOptional()
   @IsString()
   username?: string;
 
@@ -40,4 +49,8 @@ export class UpdateUserDto {
   @IsString()
   @MinLength(6)
   password?: string;
+
+  @IsOptional()
+  @IsString()
+  description?: string;
 }
