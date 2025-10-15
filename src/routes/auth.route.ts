@@ -6,9 +6,9 @@ import LoginDto from '../dtos/auth.dto';
 
 const router: Router = Router();
 
-router.post('/login', validateDto(CreateUserDto), authController.login);
+router.post('/login', validateDto(LoginDto), authController.login);
 
-router.post('/register', validateDto(LoginDto), authController.register);
+router.post('/register', validateDto(CreateUserDto), authController.register);
 
 router.post('/activate', (req, res) => {
   // activate logic - TODO
