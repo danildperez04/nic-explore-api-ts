@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Hotel } from './hotel.entity';
-import { DepartmentImage } from './departmentImage.entity';
+import { ImageAssociation } from './image-association.entity';
 
 @Entity()
 export class Department {
@@ -35,8 +35,8 @@ export class Department {
   @OneToMany(() => Hotel, (hotel) => hotel.department)
   hotels: Hotel[];
 
-  @OneToMany(() => DepartmentImage, (deptImg) => deptImg.department, {
+  @OneToMany(() => ImageAssociation, (imageAssoc) => imageAssoc.ownerId, {
     cascade: true,
   })
-  images: DepartmentImage[];
+  images: ImageAssociation[];
 }

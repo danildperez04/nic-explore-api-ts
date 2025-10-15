@@ -1,5 +1,6 @@
 
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { ImageAssociation } from './image-association.entity';
 
 @Entity()
 export class ImageMetaData {
@@ -23,4 +24,7 @@ export class ImageMetaData {
 
   @Column({ nullable: true, type: 'timestamp' })
   dateTaken?: Date;
+
+  @OneToMany(() => ImageAssociation, (imageAssoc) => imageAssoc.metadata)
+  image: ImageAssociation;
 }
