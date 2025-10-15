@@ -4,6 +4,7 @@ import { IService } from './IService';
 import { NotFoundException } from '../common/exceptions/httpException';
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
 import bcrypt from 'bcrypt';
+import { FindOptionsWhere } from 'typeorm';
 export class UserService implements IService<User> {
   constructor(private repository = userRepository) { }
 
@@ -19,6 +20,14 @@ export class UserService implements IService<User> {
 
   async findOne(id: number): Promise<User | null> {
     const user = await this.repository.findOne(id);
+
+    if (!user) throw new NotFoundException('User not found');
+
+    return user;
+  }
+
+  async findBy(identifier: FindOptionsWhere<User> | FindOptionsWhere<User>[]) {
+    const user = await userRepository.findOneBy(identifier);
 
     if (!user) throw new NotFoundException('User not found');
 

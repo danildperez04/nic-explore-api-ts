@@ -1,6 +1,7 @@
 import { User } from '../entities/user.entity';
 import { dataSource } from '../config/database';
 import { IRepository } from './IRepository';
+import { FindOptionsWhere } from 'typeorm';
 
 const userRepository = dataSource.getRepository(User);
 
@@ -15,6 +16,12 @@ export class UserRepository implements IRepository<User> {
 
   async findOne(id: number): Promise<User | null> {
     const user = await this.repository.findOneBy({ id });
+
+    return user;
+  }
+
+  async findOneBy(identifier: FindOptionsWhere<User> | FindOptionsWhere<User>[]) {
+    const user = await this.repository.findOneBy(identifier);
 
     return user;
   }
