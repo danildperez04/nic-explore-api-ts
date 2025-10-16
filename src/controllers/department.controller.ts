@@ -23,7 +23,9 @@ export class DepartmentController {
 
   create = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const created = await departmentService.create(req.body);
+      const file = req.file;
+      const created = await departmentService.create(req.body, file);
+
       res.status(201).json(created);
     } catch (error) {
       next(error);

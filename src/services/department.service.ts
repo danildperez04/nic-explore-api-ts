@@ -2,6 +2,7 @@ import { Department } from '../entities/department.entity';
 import { departmentRepository } from '../repositories';
 import { IService } from './IService';
 import { NotFoundException } from '../common/exceptions/httpException';
+import { uploadService } from '.';
 
 export class DepartmentService implements IService<Department> {
   async findAll(): Promise<Department[]> {
@@ -16,8 +17,18 @@ export class DepartmentService implements IService<Department> {
     return dep;
   }
 
-  async create(data: Partial<Department>): Promise<Department> {
-    return departmentRepository.create(data);
+  async create(data: Partial<Department>, file?: Express.Multer.File | undefined): Promise<Department> {
+    let department;
+
+    if (!file) {
+      department = await departmentRepository.create(data);
+    }
+
+    const image = await uploadService.upload(file);
+
+    department = await departmentRepository.create({ ...data, imagePath: image.url });
+
+    return department;
   }
 
   async update(id: number, data: Partial<Department>): Promise<Department | null> {

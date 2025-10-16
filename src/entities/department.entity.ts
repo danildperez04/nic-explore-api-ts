@@ -20,10 +20,10 @@ export class Department {
   imagePath: string;
 
   @Column()
-  longitude: string;
+  longitude: number;
 
   @Column()
-  latitude: string;
+  latitude: number;
 
   @CreateDateColumn()
   createdAt: Date;
