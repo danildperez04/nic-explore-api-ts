@@ -13,16 +13,24 @@ export class Department {
   @Column()
   description: string;
 
-  @Column()
+  @Column({
+    type: 'decimal'
+  })
   rating: number;
 
-  @Column()
-  imagePath: string;
+  @Column({
+    nullable: true
+  })
+  imagePath?: string;
 
-  @Column()
+  @Column({
+    type: 'decimal'
+  })
   longitude: number;
 
-  @Column()
+  @Column({
+    type: 'decimal'
+  })
   latitude: number;
 
   @CreateDateColumn()
