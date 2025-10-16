@@ -10,7 +10,6 @@ console.log(client);
 async function landmarkDetection(file: any) {
   // imagenBuffer: Buffer de imagen recibida desde tu app móvil
   const [result] = await client.landmarkDetection('./' + file.path);
-  console.log(result);
   const landmarks = result.landmarkAnnotations;
 
   if (!landmarks || landmarks.length === 0) {
