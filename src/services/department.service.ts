@@ -22,6 +22,7 @@ export class DepartmentService implements IService<Department> {
 
     if (!file) {
       department = await departmentRepository.create(data);
+      return department;
     }
 
     const image = await uploadService.upload(file);
