@@ -1,8 +1,10 @@
 import { Place } from '../entities/place.entity';
 import { placeRepository } from '../repositories';
 import { IService } from './IService';
-import { NotFoundException } from '../common/exceptions/httpException';
+import { BadRequestException, NotFoundException } from '../common/exceptions/httpException';
 import { CreatePlaceDto, UpdatePlaceDto } from '../dtos/place.dto';
+import landmarkDetection from '../utils/landmarkDetection';
+import { uploadService } from '.';
 
 export class PlaceService implements IService<Place> {
   constructor(private repository = placeRepository) { }
@@ -31,6 +33,16 @@ export class PlaceService implements IService<Place> {
   async remove(id: number): Promise<void> {
     const removed = await this.repository.remove(id);
     if (!removed) throw new NotFoundException('Place not found');
+  }
+
+  async detectLandmark(file: Express.Multer.File | undefined) {
+    if (!file) throw new BadRequestException('File not provided');
+
+    await uploadService.upload(file);
+
+    const result = await landmarkDetection(file);
+
+    return result;
   }
 }
 

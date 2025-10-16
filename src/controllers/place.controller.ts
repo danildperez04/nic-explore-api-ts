@@ -51,6 +51,18 @@ export class PlaceController {
       next(err);
     }
   };
+
+  detectLandmark = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const file = req.file;
+
+      const result = await placeService.detectLandmark(file);
+
+      res.status(200).json(result);
+    } catch (err) {
+      next(err);
+    }
+  };
 }
 
 const defaultPlaceController = new PlaceController();
