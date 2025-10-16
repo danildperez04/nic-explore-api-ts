@@ -4,13 +4,18 @@ import morgan from 'morgan';
 import router from './routes';
 import { notFoundHandler } from './middlewares/notfound';
 import { errorHandler } from './middlewares/errorHandler';
+import path from 'path';
+
 
 const app: Express = express();
 
 // Middlewares
-app.use(cors());
 app.use(express.json());
+app.use(cors());
 app.use(morgan('dev'));
+
+// Servir archivos estáticos
+app.use('/uploads', express.static(path.join(__dirname, '../public/uploads')));
 
 // Routes
 app.get('/', (req, res) => {
