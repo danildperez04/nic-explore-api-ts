@@ -15,7 +15,6 @@ export class CreateDepartmentDto {
 
   @IsOptional()
   @IsString()
-  @IsNotEmpty()
   imagePath?: string;
 
   @IsNumber()
