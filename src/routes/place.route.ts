@@ -1,12 +1,14 @@
 import { Router } from 'express';
 import placeController from '../controllers/place.controller';
 import { upload } from '../config/multer';
+import validateDto from '../middlewares/validate';
+import CreatePlaceDto from '../dtos/place.dto';
 
 const router: Router = Router();
 
 router.route('/')
   .get(placeController.findAll)
-  .post(placeController.create);
+  .post(upload.single('image'), validateDto(CreatePlaceDto), placeController.create);
 
 router.route('/:id')
   .get(placeController.findOne)
