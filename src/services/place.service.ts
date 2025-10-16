@@ -24,6 +24,8 @@ export class PlaceService implements IService<Place> {
 
     if (!file) {
       place = await this.repository.create(data);
+
+      return place;
     }
 
     const image = await uploadService.upload(file);
