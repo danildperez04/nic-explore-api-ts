@@ -29,7 +29,6 @@ export class CreateUserDto {
 
 export class UpdateUserDto {
   @IsOptional()
-  @IsNotEmpty()
   @IsString()
   firstName?: string;
 
