@@ -1,36 +1,36 @@
 import { IsNotEmpty, IsOptional, IsString, IsNumber } from 'class-validator';
 
 export class CreatePlaceDto {
-  @IsNotEmpty()
   @IsString()
+  @IsNotEmpty()
   name: string;
 
-  @IsOptional()
   @IsString()
-  description?: string;
+  @IsNotEmpty()
+  description: string;
 
-  @IsOptional()
   @IsString()
-  address?: string;
+  @IsNotEmpty()
+  address: string;
 
-  @IsOptional()
   @IsNumber()
-  rating?: number;
+  @IsNotEmpty()
+  rating: number;
 
   @IsOptional()
   @IsString()
   imagePath?: string;
 
-  @IsOptional()
   @IsNumber()
-  longitude?: number;
-
-  @IsOptional()
-  @IsNumber()
-  latitude?: number;
-
   @IsNotEmpty()
+  longitude: number;
+
   @IsNumber()
+  @IsNotEmpty()
+  latitude: number;
+
+  @IsNumber()
+  @IsNotEmpty()
   departmentId: number;
 
   @IsOptional()

@@ -13,11 +13,11 @@ const { findAll, findOne, create, update, remove } = departmentController;
 
 router.route('/')
   .get(findAll)
-  .post(validateDto(CreateDepartmentDto), upload.single('image'), create);
+  .post(upload.single('image'), validateDto(CreateDepartmentDto), create);
 
 router.route('/:id')
   .get(findOne)
-  .put(/* validateDto(UpdateDepartmentDto), */ update)
+  .put(/*validateDto(UpdateDepartmentDto),*/ update)
   .delete(remove);
 
 export default router;
