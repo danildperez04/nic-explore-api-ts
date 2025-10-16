@@ -25,6 +25,12 @@ export class ImageMetaData {
   @Column({ nullable: true, type: 'timestamp' })
   dateTaken?: Date;
 
+  @Column()
+  mimetype: string;
+
+  @Column()
+  size: number;
+
   @OneToMany(() => ImageAssociation, (imageAssoc) => imageAssoc.metadata)
-  image: ImageAssociation;
+  imageAssoc: ImageAssociation;
 }

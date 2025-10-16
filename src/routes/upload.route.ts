@@ -1,15 +1,12 @@
-import { Request, Response, Router } from 'express';
+import { Router } from 'express';
 import { upload } from '../config/multer';
+import { uploadController } from '../controllers';
 
 const router: Router = Router();
 
 router.post('/',
   upload.single('image'),
-  (req: Request, res: Response) => {
-    const file = req['file'];
-
-    res.json({ url: `/uploads/${file?.filename}` });
-  }
+  uploadController.upload
 );
 
 export default router;
