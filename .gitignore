@@ -147,3 +147,4 @@ requests
 dist
 
 nic-explore-*.json
+public/

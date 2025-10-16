@@ -19,8 +19,17 @@ export class PlaceService implements IService<Place> {
     return place;
   }
 
-  async create(data: CreatePlaceDto): Promise<Place> {
-    const place = await this.repository.create(data);
+  async create(data: CreatePlaceDto, file?: Express.Multer.File | undefined): Promise<Place> {
+    let place;
+
+    if (!file) {
+      place = await this.repository.create(data);
+    }
+
+    const image = await uploadService.upload(file);
+
+    place = await this.repository.create({ ...data, imagePath: image.url });
+
     return place;
   }
 

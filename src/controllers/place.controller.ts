@@ -24,7 +24,10 @@ export class PlaceController {
   create = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const dto = req.body;
-      const created = await placeService.create(dto);
+
+      const file = req.file;
+
+      const created = await placeService.create(dto, file);
       res.status(201).json(created);
     } catch (err) {
       next(err);
