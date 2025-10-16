@@ -9,9 +9,9 @@ export class CreateDepartmentDto {
   @IsNotEmpty()
   description: string;
 
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  rating: string;
+  rating: number;
 
   @IsString()
   @IsNotEmpty()

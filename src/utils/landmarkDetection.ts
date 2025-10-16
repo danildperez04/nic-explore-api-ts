@@ -5,8 +5,6 @@ const client = new vision.ImageAnnotatorClient({
   keyFilename: process.env.VISION_FILE as string
 });
 
-console.log(client);
-
 async function landmarkDetection(file: any) {
   // imagenBuffer: Buffer de imagen recibida desde tu app móvil
   const [result] = await client.landmarkDetection('./' + file.path);

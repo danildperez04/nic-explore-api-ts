@@ -14,7 +14,7 @@ export class Department {
   description: string;
 
   @Column()
-  rating: string;
+  rating: number;
 
   @Column()
   imagePath: string;
