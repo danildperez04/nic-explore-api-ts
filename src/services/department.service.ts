@@ -11,7 +11,7 @@ export class DepartmentService implements IService<Department> {
     return deps;
   }
 
-  async findOne(id: number): Promise<Department | null> {
+  async findOne(id: number): Promise<Department> {
     const dep = await departmentRepository.findOne(id);
     if (!dep) throw new NotFoundException('Department not found');
     return dep;
