@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { userService } from '../services';
 import { HttpStatusCode } from '../common/http/httpStatusCode';
+import { User } from '../entities/user.entity';
 
 export class UserController {
   constructor(private service = userService) { }
@@ -9,7 +10,7 @@ export class UserController {
   findAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const users = await this.service.findAll();
-      res.json(users);
+      res.json(users.map(this.sanitize));
     } catch (error) {
       next(error);
     }
@@ -20,7 +21,7 @@ export class UserController {
       const id = Number(req.params.id);
       const user = await this.service.findOne(id);
 
-      res.json(user);
+      res.json(this.sanitize(user));
     } catch (error) {
       next(error);
     }
@@ -59,6 +60,12 @@ export class UserController {
       next(error);
     }
   };
+
+  sanitize(user: User) {
+    const { isActive, createdAt, updatedAt, password, twoFACode, twoFACodeExpiresAt, twoFAEnabled, ...safeUser } = user;
+
+    return safeUser;
+  }
 }
 
 const defaultUserController = new UserController();
