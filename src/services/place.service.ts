@@ -4,7 +4,7 @@ import { IService } from './IService';
 import { BadRequestException, NotFoundException } from '../common/exceptions/httpException';
 import { CreatePlaceDto, UpdatePlaceDto } from '../dtos/place.dto';
 import landmarkDetection from '../utils/landmarkDetection';
-import { uploadService } from '.';
+import { departmentService, uploadService } from '.';
 
 export class PlaceService implements IService<Place> {
   constructor(private repository = placeRepository) { }
@@ -22,15 +22,17 @@ export class PlaceService implements IService<Place> {
   async create(data: CreatePlaceDto, file?: Express.Multer.File | undefined): Promise<Place> {
     let place;
 
+    const department = await departmentService.findOne(data.departmentId);
+
     if (!file) {
-      place = await this.repository.create(data);
+      place = await this.repository.create({ ...data, department });
 
       return place;
     }
 
     const image = await uploadService.upload(file);
 
-    place = await this.repository.create({ ...data, imagePath: image.url });
+    place = await this.repository.create({ ...data, department, imagePath: image.url });
 
     return place;
   }
