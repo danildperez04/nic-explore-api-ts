@@ -18,7 +18,7 @@ export class UserService implements IService<User> {
     return users;
   }
 
-  async findOne(id: number): Promise<User | null> {
+  async findOne(id: number): Promise<User> {
     const user = await this.repository.findOne(id);
 
     if (!user) throw new NotFoundException('User not found');
