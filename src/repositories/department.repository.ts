@@ -6,7 +6,7 @@ const departmentRepository = dataSource.getRepository(Department);
 
 export class DepartmentRepository implements IRepository<Department> {
   async findAll(): Promise<Department[]> {
-    return departmentRepository.find({});
+    return departmentRepository.find({ relations: ['places'] });
   }
 
   async findOne(id: number): Promise<Department | null> {
